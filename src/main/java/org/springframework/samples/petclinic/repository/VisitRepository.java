@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.repository;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,6 +44,8 @@ public interface VisitRepository {
     void save(Visit visit) throws DataAccessException;
 
     List<Visit> findByPetId(Integer petId);
+
+    List<Visit> findByPetIdAndDateGreaterThan(Integer petId, LocalDate date);
     
 	Visit findById(int id) throws DataAccessException;
 	
