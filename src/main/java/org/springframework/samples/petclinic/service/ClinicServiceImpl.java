@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -82,6 +83,10 @@ public class ClinicServiceImpl implements ClinicService {
 	@Transactional
 	public void deletePet(Pet pet) throws DataAccessException {
 		petRepository.delete(pet);
+		List<Visit> visits = visitRepository.findByPetIdAndDateGreaterThan(pet.getId(), LocalDate.now());
+		for (Visit visit : visits) {
+			visitRepository.delete(visit);
+		}
 	}
 
 	@Override
